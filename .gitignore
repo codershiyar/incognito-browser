@@ -1,0 +1,11 @@
+# Notes for setting this up, meant for whoever publishes the site rather
+# than for anyone visiting it. Kept out so the repository shows the
+# browser and not its own scaffolding. The copy that survives lives in the
+# private project repository, at store\site-setup.md.
+SETUP.md
+
+# Windows and editor leftovers.
+Thumbs.db
+desktop.ini
+.DS_Store
+*.swp

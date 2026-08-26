@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Incognito Browser</title>
+<meta name="description" content="A browser that leaves nothing behind. No history, no cookies, no cache. For Windows and Android.">
+<link rel="icon" href="assets/favicon.png">
+<meta property="og:title" content="Incognito Browser">
+<meta property="og:description" content="A browser that leaves nothing behind. No history, no cookies, no cache.">
+<meta property="og:image" content="assets/icon.png">
+<meta name="theme-color" content="#06090A">
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem("theme");
+      if (saved === "light" || saved === "dark") {
+        document.documentElement.dataset.theme = saved;
+      }
+    } catch (e) {}
+  })();
+</script>
+<style>
+  :root {
+    /* Dark is the default, and deliberately not tied to the visitor's
+       system setting: the browser itself starts dark, so this is what the
+       product actually looks like. The toggle in the corner switches it,
+       and that choice is remembered.
+
+       Light redefines only the tokens, never the components, so no colour
+       is ever declared in one theme and missing from the other. */
+    --emerald: #22C97E;
+    --emerald-bright: #45EFA0;
+    --emerald-deep: #0B8A4F;
+    --accent-on: #04120B;
+
+    --ink: #06090A;
+    --ink-raised: #0E1613;
+    --surface: #121B17;
+    --line: #1E2A25;
+    --line-bright: #2A3A33;
+    --text: #E9F1EC;
+    --muted: #8DA298;
+    --glow: rgba(69, 239, 160, 0.22);
+    --nav-veil: rgba(6, 9, 10, 0.82);
+
+    --display: "Segoe UI", Inter, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    --mono: "Cascadia Code", Consolas, ui-monospace, "SF Mono", Menlo, monospace;
+
+    --gutter: clamp(20px, 5vw, 64px);
+    color-scheme: dark;
+  }
+
+  :root[data-theme="light"] {
+    --emerald: #0E9E5F;
+    --emerald-bright: #12B76D;
+    --emerald-deep: #0B7A4A;
+    --accent-on: #FFFFFF;
+    --ink: #F3F6F4;
+    --ink-raised: #FFFFFF;
+    --surface: #FFFFFF;
+    --line: #DDE5E0;
+    --line-bright: #C6D2CB;
+    --text: #0A1310;
+    --muted: #5B6B64;
+    --glow: rgba(14, 158, 95, 0.16);
+    --nav-veil: rgba(243, 246, 244, 0.82);
+    color-scheme: light;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation: none !important; transition: none !important; }
+  }
+
+  body {
+    margin: 0;
+    background: var(--ink);
+    color: var(--text);
+    font-family: var(--display);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding-inline: var(--gutter); }
+
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--emerald-bright);
+    outline-offset: 3px;
+  }
+
+  .label {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--emerald);
+  }
+
+  /* ---------- nav ---------- */
+  nav {
+    position: sticky; top: 0; z-index: 20;
+    background: var(--nav-veil);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 20px; height: 64px;
+  }
+  .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+  .brand img { width: 30px; height: 30px; display: block; }
+  .brand span { font-weight: 650; letter-spacing: -0.015em; font-size: 16.5px; }
+  .nav-links { display: flex; gap: 28px; align-items: center; }
+  .nav-links a {
+    text-decoration: none; color: var(--muted); font-size: 14.5px;
+    transition: color 0.15s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  @media (max-width: 620px) { .nav-links a.hide-narrow { display: none; } }
+
+  #theme-toggle {
+    display: grid; place-items: center;
+    width: 36px; height: 36px; padding: 0;
+    background: none; color: var(--muted); cursor: pointer;
+    border: 1px solid var(--line); border-radius: 9px;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  #theme-toggle:hover { color: var(--text); border-color: var(--line-bright); }
+  #theme-toggle svg { width: 17px; height: 17px; grid-area: 1 / 1; }
+  /* Show the theme you would switch to, not the one you are in. */
+  :root .icon-sun { display: none; }
+  :root .icon-moon { display: block; }
+  :root[data-theme="dark"] .icon-sun { display: none; }
+  :root[data-theme="dark"] .icon-moon { display: block; }
+  :root[data-theme="light"] .icon-sun { display: block; }
+  :root[data-theme="light"] .icon-moon { display: none; }
+
+  /* The shield comes in two strengths: the deeper green holds up on white,
+     the bright one is made for the near black. */
+  /* The :root prefix is not decoration. Without it this rule is one
+     class, while .hero-art img and .shot-frame img are a class plus an
+     element and therefore win, so both versions show at once until a
+     data-theme attribute appears and raises the other rules above them. */
+  :root .art-light { display: none; }
+  :root .art-dark { display: block; }
+  :root[data-theme="dark"] .art-light { display: none; }
+  :root[data-theme="dark"] .art-dark { display: block; }
+  :root[data-theme="light"] .art-light { display: block; }
+  :root[data-theme="light"] .art-dark { display: none; }
+
+  /* ---------- hero ---------- */
+  header { padding: clamp(56px, 11vw, 128px) 0 0; position: relative; }
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: clamp(32px, 6vw, 80px);
+    align-items: center;
+  }
+  @media (max-width: 880px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-art { order: -1; max-width: 240px; }
+  }
+
+  h1 {
+    font-size: clamp(42px, 7.4vw, 86px);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+    font-weight: 700;
+    margin: 20px 0 0;
+    text-wrap: balance;
+  }
+  h1 em {
+    font-style: normal;
+    color: var(--emerald-bright);
+  }
+  .hero p {
+    color: var(--muted);
+    max-width: 46ch;
+    font-size: clamp(17px, 2vw, 19.5px);
+    margin: 26px 0 0;
+  }
+
+  .hero-art { position: relative; justify-self: center; width: 100%; max-width: 340px; }
+  .hero-art img { width: 100%; display: block; }
+  .hero-art::before {
+    content: ""; position: absolute; inset: 12% 8% 20%;
+    background: radial-gradient(circle, var(--glow), transparent 68%);
+    filter: blur(38px); z-index: -1;
+  }
+
+  .actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 38px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 24px; border-radius: 10px;
+    font-size: 15.5px; font-weight: 600; text-decoration: none;
+    border: 1px solid transparent; cursor: pointer;
+    transition: transform 0.14s ease, background 0.14s ease, border-color 0.14s;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: var(--emerald); color: var(--accent-on); }
+  .btn-primary:hover { background: var(--emerald-bright); }
+  .btn-ghost { border-color: var(--line-bright); color: var(--text); }
+  .btn-ghost:hover { border-color: var(--emerald); }
+  .btn svg { width: 17px; height: 17px; flex: none; }
+
+  .meta {
+    margin-top: 20px; font-family: var(--mono); font-size: 12.5px;
+    color: var(--muted); display: flex; flex-wrap: wrap; gap: 8px 18px;
+  }
+
+  /* ---------- dissolve divider ---------- */
+  .dissolve {
+    display: grid; grid-auto-flow: column; gap: 4px;
+    height: 10px; margin: clamp(56px, 9vw, 104px) 0;
+    justify-content: start; overflow: hidden;
+  }
+  .dissolve i { display: block; width: 10px; height: 10px; background: var(--emerald); }
+
+  /* ---------- sections ---------- */
+  section { padding: clamp(48px, 8vw, 96px) 0; }
+  h2 {
+    font-size: clamp(30px, 4.4vw, 46px);
+    letter-spacing: -0.035em; line-height: 1.05; font-weight: 700;
+    margin: 14px 0 0; text-wrap: balance; max-width: 20ch;
+  }
+  .section-lede { color: var(--muted); max-width: 56ch; margin: 20px 0 0; }
+
+  .features {
+    display: grid; gap: 1px; margin-top: clamp(38px, 6vw, 64px);
+    background: var(--line);
+    grid-template-columns: repeat(auto-fit, minmax(276px, 1fr));
+    border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+  }
+  .feature { background: var(--ink-raised); padding: 30px 28px 32px; }
+  .feature h3 {
+    font-size: 18px; font-weight: 650; letter-spacing: -0.015em;
+    margin: 16px 0 8px;
+  }
+  .feature p { margin: 0; color: var(--muted); font-size: 15px; }
+  .feature svg { width: 22px; height: 22px; color: var(--emerald); }
+
+  /* ---------- showcase ---------- */
+  .shot { margin-top: clamp(44px, 7vw, 88px); }
+  .shot + .shot { margin-top: clamp(56px, 9vw, 112px); }
+  .shot-head { max-width: 54ch; }
+  .shot-head .label { display: block; margin-bottom: 12px; }
+  .shot-head h3 {
+    font-size: clamp(23px, 3vw, 31px); letter-spacing: -0.03em;
+    line-height: 1.12; margin: 0; font-weight: 680;
+  }
+  .shot-frame {
+    margin: 28px 0 0; border-radius: 14px; overflow: hidden;
+    border: 1px solid var(--line); background: var(--ink-raised);
+  }
+  .shot-frame img { width: 100%; display: block; }
+
+  /* A picture that already holds two devices does not need to run the full
+     width to read; it sits in a panel instead, capped in height so it does
+     not push everything else off the screen. */
+  .shot-frame.card {
+    background: var(--ink-raised);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: clamp(16px, 3vw, 40px);
+    display: flex; justify-content: center;
+  }
+  .shot-frame.card img {
+    width: auto; max-width: 100%;
+    max-height: min(520px, 62vh);
+    object-fit: contain;
+  }
+
+
+  .shot-foot {
+    margin: 18px 0 0; color: var(--muted); font-size: 15.5px; max-width: 60ch;
+  }
+
+  /* ---------- windows callout ---------- */
+  .callout {
+    border: 1px solid var(--line); border-radius: 20px;
+    background:
+      radial-gradient(120% 140% at 88% 0%, var(--glow), transparent 62%),
+      var(--ink-raised);
+    padding: clamp(32px, 5vw, 56px);
+    display: grid; grid-template-columns: minmax(0, 1fr) auto;
+    gap: clamp(24px, 4vw, 56px); align-items: center;
+  }
+  @media (max-width: 780px) { .callout { grid-template-columns: 1fr; } }
+  .callout h2 { margin-top: 10px; }
+  .callout-mark { width: 132px; opacity: 0.9; }
+  @media (max-width: 780px) { .callout-mark { display: none; } }
+
+  /* ---------- download ---------- */
+  .download-grid {
+    display: grid; gap: 20px; margin-top: clamp(36px, 5vw, 56px);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+  .card {
+    border: 1px solid var(--line); border-radius: 16px;
+    background: var(--surface); padding: 30px 28px 32px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .card h3 { margin: 0; font-size: 20px; letter-spacing: -0.02em; font-weight: 660; }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; }
+  .card .btn { align-self: flex-start; }
+  .card > .btn { margin-top: auto; }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; }
+  .spec {
+    font-family: var(--mono); font-size: 12px; color: var(--muted);
+    display: grid; gap: 6px;
+  }
+  .spec b { color: var(--text); font-weight: 400; }
+  .hash { word-break: break-all; }
+  /* Says out loud that the Play link does not work yet, rather than
+     letting someone click through to a page that is not there. Delete
+     this line and the span once the app is live. */
+  .soon { color: #B4713A; }
+
+  .note {
+    margin-top: 32px; border-left: 2px solid var(--emerald-deep);
+    padding: 4px 0 4px 22px; color: var(--muted); font-size: 15px;
+    max-width: 68ch;
+  }
+  .note strong { color: var(--text); font-weight: 620; }
+
+  /* ---------- footer ---------- */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 44px 0 60px; margin-top: clamp(48px, 8vw, 96px);
+  }
+  .foot-inner {
+    display: flex; flex-wrap: wrap; gap: 20px 40px;
+    justify-content: space-between; align-items: center;
+  }
+  .foot-links { display: flex; gap: 26px; flex-wrap: wrap; }
+  .foot-inner a { color: var(--muted); text-decoration: none; font-size: 14.5px; }
+  .foot-inner a:hover { color: var(--text); }
+  .foot-note { color: var(--muted); font-size: 14px; text-decoration: none; }
+  a.foot-note:hover { color: var(--text); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">
+      <img src="assets/logo.png" alt="">
+      <span>Incognito Browser</span>
+    </a>
+    <div class="nav-links">
+      <a href="#what" class="hide-narrow">What it does</a>
+      <a href="#look" class="hide-narrow">A look inside</a>
+      <a href="#get">Download</a>
+      <button id="theme-toggle" type="button" aria-label="Switch between light and dark">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.6 6.6 0 0 0 10.5 10.5Z"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<header id="top">
+  <div class="wrap hero">
+    <div>
+      <span class="label">Windows &amp; Android</span>
+      <h1>Browse like you were <em>never here</em>.</h1>
+      <p>No history. No cookies. No cache. Everything from your session is
+         gone the second you close it, so whoever picks up your device next
+         finds an empty browser.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#get">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg>
+          Download for Windows
+        </a>
+        <a class="btn btn-ghost" href="#get">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>
+          Android
+        </a>
+      </div>
+      <div class="meta">
+        <span>Version 1.0.0</span>
+        <span>11.2 MB</span>
+        <span>Free, no account</span>
+      </div>
+    </div>
+    <div class="hero-art">
+      <img class="art-light" src="assets/logo.png" alt="The Incognito Browser shield, dissolving at the bottom">
+      <img class="art-dark" src="assets/mark-dark.png" alt="">
+    </div>
+  </div>
+  <div class="wrap"><div class="dissolve" data-dissolve="34"></div></div>
+</header>
+
+<main>
+
+<section id="what">
+  <div class="wrap">
+    <span class="label">What it does</span>
+    <h2>Private is the only mode there is.</h2>
+    <p class="section-lede">Other browsers hide a private mode in a menu you
+       have to remember. This one has no other mode: every tab, every time,
+       without you doing anything.</p>
+
+    <div class="features">
+      <div class="feature">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 2.6-6.4"/><path d="M3 4v5h5"/><path d="M12 8v4l3 2"/></svg>
+        <h3>Nothing is written down</h3>
+        <p>Cookies, local storage, databases and the cache are wiped, not
+           hidden. There is no history feature to clear, because nothing is
+           ever recorded.</p>
+      </div>
+      <div class="feature">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8"/><path d="m4 5 16 12"/></svg>
+        <h3>Blank in the app switcher</h3>
+        <p>Open your recent apps and other browsers show a live picture of
+           the page you were reading. This one shows a blank card. You can
+           still take a screenshot yourself; it is other people the card is
+           hidden from.</p>
+      </div>
+      <div class="feature">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></svg>
+        <h3>Ads and trackers stopped</h3>
+        <p>Requests to ninety thousand known advertising and tracking
+           domains never leave your device. Pages load lighter and use less
+           of your data.</p>
+      </div>
+      <div class="feature">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="14" height="11" rx="2"/><path d="M17 9h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2v-2"/></svg>
+        <h3>Popups wait for you</h3>
+        <p>Sites that open windows on their own, or bounce you somewhere you
+           never asked to go, are held back and shown to you first. You
+           decide.</p>
+      </div>
+      <div class="feature">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h.01"/><path d="M3 16a4 4 0 0 1 4 4"/><path d="M3 12a8 8 0 0 1 8 8"/><rect x="11" y="4" width="10" height="7" rx="1.5"/></svg>
+        <h3>Cast to your TV</h3>
+        <p>Send video and audio from any page to a Chromecast, or to a
+           Samsung or LG over DLNA. Pages with several videos let you pick
+           the one you want.</p>
+      </div>
+      <div class="feature">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5 11 5v6.5H4z"/><path d="M13 4.6 20 3v8.5h-7z"/><path d="M4 13.5h7V20l-7-1.5z"/><path d="M13 13.5h7V22l-7-1.6z"/></svg>
+        <h3>The same on your desktop</h3>
+        <p>A real Windows version, not a phone app in a window. Each launch
+           gets a throwaway profile that is deleted when you close it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="dissolve" data-dissolve="26"></div></div>
+
+<section id="look">
+  <div class="wrap">
+    <span class="label">A look inside</span>
+    <h2>Quiet, and out of your way.</h2>
+    <p class="section-lede">Nothing to configure, no onboarding, no account.
+       It opens on an empty page and gets out of the way.</p>
+
+    <div class="shot">
+      <div class="shot-head">
+        <span class="label">On the desktop</span>
+        <h3>Opens empty, every single time</h3>
+      </div>
+      <div class="shot-frame card">
+        <img class="art-light" src="assets/screenshots/desktop-light.png" alt="Incognito Browser on Windows, showing its empty start page">
+        <img class="art-dark" src="assets/screenshots/desktop.png" alt="">
+      </div>
+      <p class="shot-foot">No tiles of sites you visited, no suggestions built
+         from what you read yesterday. There is nothing to build them from.
+         Everything is already on: the settings are there to switch things
+         off, not to turn privacy on.</p>
+    </div>
+
+    <div class="shot">
+      <div class="shot-head">
+        <span class="label">On your phone</span>
+        <h3>Light or dark, whichever you keep</h3>
+      </div>
+      <div class="shot-frame card">
+        <img src="assets/screenshots/phone.png" alt="Incognito Browser on a phone, in its light and its dark theme">
+      </div>
+      <p class="shot-foot">Tabs, downloads, casting and the ad blocker, in an
+         app that downloads in about eight megabytes. It follows whatever your
+         phone is set to, or you can pin it to one.</p>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="dissolve" data-dissolve="20"></div></div>
+
+<section>
+  <div class="wrap">
+    <div class="callout">
+      <div>
+        <span class="label">Rare</span>
+        <h2>Almost no private browser has a desktop version.</h2>
+        <p class="section-lede">Most privacy browsers stop at the phone. This
+           one runs properly on Windows: it registers as a real browser, opens
+           your local files, casts to your TV, and throws its whole profile
+           away when the window closes. Same idea, same shield, a keyboard and
+           a big screen.</p>
+      </div>
+      <img class="callout-mark art-light" src="assets/logo.png" alt="">
+      <img class="callout-mark art-dark" src="assets/mark-dark.png" alt="">
+    </div>
+  </div>
+</section>
+
+<section id="get">
+  <div class="wrap">
+    <span class="label">Download</span>
+    <h2>Get it.</h2>
+    <p class="section-lede">Free, no account, no sign-up. There is no server
+       of ours for anything to be sent to.</p>
+
+    <div class="download-grid">
+      <div class="card">
+        <h3>Windows</h3>
+        <p>Installs for your user only, so there is no administrator prompt.
+           Adds itself to Windows as a browser you can pick as the default.</p>
+        <div class="spec">
+          <span>version <b>1.0.0</b></span>
+          <span>size <b>11.2 MB</b></span>
+          <span>Windows 10 and 11, 64-bit</span>
+          <span class="hash">sha256 <b>8babf4adb4b0ce6250b20a2e918003182129ab8434e27c53e5e3605632bc5a24</b></span>
+        </div>
+        <a class="btn btn-primary" href="download/IncognitoBrowserSetup.exe" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg>
+          Download the installer
+        </a>
+      </div>
+
+      <div class="card">
+        <h3>Android</h3>
+        <p>Phones and tablets running Android 7 and up. Take it from Google
+           Play and it keeps itself up to date. Take the file instead and you
+           need no Google account at all.</p>
+        <div class="spec">
+          <span>version <b>1.0.0</b></span>
+          <span>from Google Play <b>about 8 MB</b>, only what your phone needs</span>
+          <span>as a file <b>54 MB</b>, every kind of phone in one</span>
+          <span>Android 7.0 and up, signed by Google Play</span>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.no.history.browser">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>
+            Google Play
+          </a>
+          <a class="btn btn-ghost" href="download/IncognitoBrowser.apk" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg>
+            APK file
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <p class="note"><strong>Android asks before installing a file.</strong>
+       The first time it will say the source is not allowed and offer you a
+       settings screen. Switch it on for whichever app you downloaded with,
+       go back, and the install carries on. Android asks that of everything
+       that does not come from a store.</p>
+
+    <p class="note"><strong>Windows will warn you the first time.</strong>
+       It says the publisher is unknown, because this app has no paid signing
+       certificate yet. Click <em>More info</em>, then <em>Run anyway</em>.
+       Every new program without one gets this, and the warning goes away as
+       more people install it. If you want to be certain the file is the one
+       published here, check its SHA-256 against the value above with
+       <code>Get-FileHash</code>.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-inner">
+    <a class="foot-note" href="https://github.com/codershiyar">Made by Coder Shiyar</a>
+    <div class="foot-links">
+      <a href="privacy.html">Privacy policy</a>
+      <a href="https://github.com/codershiyar/incognito-browser/releases">All versions</a>
+      <a href="https://github.com/codershiyar/incognito-browser/issues">Report a problem</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("theme-toggle").addEventListener("click", function () {
+    var root = document.documentElement;
+    // No stored choice means dark, because that is the page default.
+    var isDark = root.dataset.theme !== "light";
+    var next = isDark ? "light" : "dark";
+    root.dataset.theme = next;
+    try { localStorage.setItem("theme", next); } catch (e) {}
+  });
+
+  // The dividers repeat the icon's own idea: solid at the left, breaking
+  // apart towards the right until there is nothing left of it.
+  document.querySelectorAll('[data-dissolve]').forEach(function (strip) {
+    var count = parseInt(strip.dataset.dissolve, 10);
+    for (var i = 0; i < count; i++) {
+      var progress = i / (count - 1);
+      // Squares start dropping out early and the survivors fade, so the
+      // strip thins rather than simply getting paler.
+      if (progress > 0.35 && Math.random() < (progress - 0.35) * 1.6) continue;
+      var square = document.createElement('i');
+      square.style.opacity = Math.max(0.08, 1 - progress * 1.1).toFixed(2);
+      strip.appendChild(square);
+    }
+  });
+</script>
+
+</body>
+</html>

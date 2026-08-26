@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy policy - Incognito Browser</title>
+<meta name="description" content="Incognito Browser collects nothing. No account, no analytics, no server of ours for anything to be sent to.">
+<link rel="icon" href="assets/favicon.png">
+<meta name="theme-color" content="#F3F6F4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#06090A" media="(prefers-color-scheme: dark)">
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem("theme");
+      if (saved === "light" || saved === "dark") {
+        document.documentElement.dataset.theme = saved;
+      }
+    } catch (e) {}
+  })();
+</script>
+<style>
+  :root {
+    --emerald: #0E9E5F;
+    --emerald-bright: #0B7A4A;
+    --ink: #F3F6F4;
+    --ink-raised: #FFFFFF;
+    --line: #DDE5E0;
+    --text: #0A1310;
+    --muted: #5B6B64;
+    color-scheme: light;
+    --display: "Segoe UI", Inter, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    --mono: "Cascadia Code", Consolas, ui-monospace, "SF Mono", Menlo, monospace;  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --emerald: #22C97E;
+      --emerald-bright: #45EFA0;
+      --ink: #06090A;
+      --ink-raised: #0E1613;
+      --line: #1E2A25;
+      --text: #E9F1EC;
+      --muted: #8DA298;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --emerald: #22C97E;
+    --emerald-bright: #45EFA0;
+    --ink: #06090A;
+    --ink-raised: #0E1613;
+    --line: #1E2A25;
+    --text: #E9F1EC;
+    --muted: #8DA298;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--ink); color: var(--text);
+    font-family: var(--display); font-size: 17px; line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 40px); }
+  a { color: var(--emerald-bright); }
+  a:focus-visible { outline: 2px solid var(--emerald-bright); outline-offset: 3px; }
+
+  nav { border-bottom: 1px solid var(--line); }
+  .nav-inner { display: flex; align-items: center; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; color: inherit; }
+  .brand img { width: 28px; height: 28px; display: block; }
+  .brand span { font-weight: 650; letter-spacing: -0.015em; font-size: 16px; }
+
+  header { padding: clamp(48px, 8vw, 88px) 0 0; }
+  .label {
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--emerald);
+  }
+  h1 {
+    font-size: clamp(34px, 5.6vw, 52px); line-height: 1.03;
+    letter-spacing: -0.04em; font-weight: 700; margin: 16px 0 0;
+  }
+  .updated { color: var(--muted); font-size: 14.5px; margin-top: 14px; font-family: var(--mono); }
+
+  .summary {
+    margin: 40px 0 0; padding: 28px 30px;
+    background: var(--ink-raised); border: 1px solid var(--line);
+    border-radius: 16px;
+  }
+  .summary p { margin: 0; }
+  .summary p + p { margin-top: 14px; }
+
+  main { padding-bottom: 80px; }
+  h2 {
+    font-size: clamp(21px, 2.8vw, 26px); letter-spacing: -0.025em;
+    font-weight: 660; margin: clamp(44px, 6vw, 64px) 0 0;
+  }
+  p { margin: 18px 0 0; }
+  p, li { color: var(--muted); }
+  h2 + p { margin-top: 14px; }
+  strong { color: var(--text); font-weight: 620; }
+
+  .scroller { overflow-x: auto; margin-top: 22px; }
+  table { border-collapse: collapse; width: 100%; font-size: 15.5px; }
+  th, td {
+    text-align: left; padding: 12px 16px;
+    border-bottom: 1px solid var(--line); vertical-align: top;
+  }
+  th {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--muted); font-weight: 400;
+    white-space: nowrap;
+  }
+  td { color: var(--muted); }
+  td:first-child { color: var(--text); white-space: nowrap; }
+  tr:last-child td { border-bottom: none; }
+
+  footer {
+    border-top: 1px solid var(--line); padding: 36px 0 56px;
+    color: var(--muted); font-size: 14.5px;
+    display: flex; flex-wrap: wrap; gap: 12px 28px; justify-content: space-between;
+  }
+  footer a { text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/logo.png" alt="">
+      <span>Incognito Browser</span>
+    </a>
+  </div>
+</nav>
+
+<header class="wrap">
+  <span class="label">Privacy policy</span>
+  <h1>We collect nothing.</h1>
+  <p class="updated">Last updated 26 August 2026</p>
+
+  <div class="summary">
+    <p>There is no account, no sign-up, no analytics, and no server of ours
+       for anything to be sent to. Nothing you do in this browser is recorded
+       anywhere we can reach.</p>
+    <p>This page exists because Google Play requires one, and because an app
+       that can ask for your camera, microphone and location owes you an
+       explanation of exactly when and why.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <h2>What stays on your device</h2>
+  <div class="scroller">
+    <table>
+      <thead><tr><th>What</th><th>What happens to it</th></tr></thead>
+      <tbody>
+        <tr><td>Browsing history</td><td>Never written. There is no history feature to clear.</td></tr>
+        <tr><td>Cookies, cache, local storage</td><td>Deleted when you close the app, and again when you open it</td></tr>
+        <tr><td>Your settings</td><td>Kept on your device, so the app looks the way you left it</td></tr>
+        <tr><td>Downloaded files</td><td>Kept in your Downloads folder. They are your files.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>None of this leaves your device. There is nothing for you to request a
+     copy of and nothing for us to delete, because we never had it.</p>
+
+  <h2>What goes over the internet</h2>
+  <p>Only the websites you visit. Your browser talks to those sites directly,
+     exactly as any browser does. We are not in the middle of that and cannot
+     see it.</p>
+  <p>Search terms go to the search engine you picked in Settings. What that
+     company does with them is covered by <strong>their</strong> privacy
+     policy, not this one.</p>
+
+  <h2>Permissions, and when they are asked for</h2>
+  <p>The app never uses any of these on its own. Each is requested at the
+     moment a website asks for it, and only after you agree. Say no and the
+     website is told no.</p>
+  <div class="scroller">
+    <table>
+      <thead><tr><th>Permission</th><th>Asked for when</th></tr></thead>
+      <tbody>
+        <tr><td>Camera</td><td>A site asks for it, for example a video call or a QR scanner</td></tr>
+        <tr><td>Microphone</td><td>A site asks for it</td></tr>
+        <tr><td>Location</td><td>A site asks where you are, for example a map</td></tr>
+        <tr><td>Notifications</td><td>Never requested. Declared only so you can switch the media playback controls on yourself, from Android settings.</td></tr>
+        <tr><td>Internet</td><td>Loading web pages</td></tr>
+        <tr><td>See installed apps</td><td>Opening links in the app they belong to, such as a banking or identity app. Without it Android hides those apps and every such link fails.</td></tr>
+        <tr><td>Foreground service</td><td>Keeping audio playing when you switch away, for example a radio stream</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Third parties</h2>
+  <p>The app contains no advertising, no analytics, no tracking libraries and
+     no crash reporting. It ships with a list of known advertising and
+     tracking domains, used to block requests to them. That list sits inside
+     the app and is never fetched or updated over the network.</p>
+  <p>Google Play counts installations, as it does for every app in its store.
+     That is Google's collection and is covered by
+     <a href="https://policies.google.com/privacy">Google's privacy policy</a>,
+     not this one.</p>
+
+  <h2>Children</h2>
+  <p>This app is not directed at children, and collects no data from anyone,
+     children included.</p>
+
+  <h2>Changes to this policy</h2>
+  <p>If it ever changes, the date at the top changes with it. Since the app
+     collects nothing, no change here can reach back and affect data that was
+     never gathered in the first place.</p>
+
+  <h2>Contact</h2>
+  <p>Coder Shiyar<br>
+     <a href="mailto:codershiyar@gmail.com">codershiyar@gmail.com</a></p>
+
+</main>
+
+<footer class="wrap">
+  <a href="https://github.com/codershiyar">Made by Coder Shiyar</a>
+  <a href="index.html">Back to the download page</a>
+</footer>
+
+</body>
+</html>
