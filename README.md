@@ -57,8 +57,8 @@ profile away when you close it.
 
 | | Version | Size | Needs |
 |---|---|---|---|
-| **Windows** | 1.1.0 | 11.2 MB | Windows 10 or 11, 64-bit |
-| **Android** | 1.1.0 | about 10 MB | Android 8.0 or newer |
+| **Windows** | 1.1.1 | 11.2 MB | Windows 10 or 11, 64-bit |
+| **Android** | 1.1.1 | about 10 MB | Android 8.0 or newer |
 
 Free. No account, no sign-up, no server of ours for anything to be sent to.
 
