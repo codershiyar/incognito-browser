@@ -6,9 +6,9 @@
 
 **Browse like you were never here.**
 
-No history. No cookies. No cache. Everything from your session is gone the
-second you close it, so whoever picks up your device next finds an empty
-browser.
+No history. No cookies. No cache. Your session is wiped when you close the
+browser and again when you open it, so nothing carries over. Nothing is kept
+unless you save it yourself.
 
 [**Download for Windows**](https://github.com/codershiyar/incognito-browser/releases/latest/download/IncognitoBrowserSetup.exe) &nbsp;·&nbsp;
 [**Get it on Google Play**](https://play.google.com/store/apps/details?id=com.no.history.browser) &nbsp;·&nbsp;
@@ -24,9 +24,9 @@ Other browsers hide a private mode behind a menu you have to remember to
 use. This one has no other mode. Every tab, every time, without you doing
 anything.
 
-**Nothing is written down.** Cookies, local storage, databases and the cache
-are wiped, not hidden. There is no history feature to clear, because nothing
-is ever recorded in the first place.
+**No history to find.** Cookies, local storage, databases and the cache
+are wiped, not hidden. There is no history feature to clear, because the
+sites you visit are never recorded in the first place.
 
 **Blank in the app switcher.** Open your recent apps and other browsers show
 a live picture of the page you were reading. This one shows nothing.
@@ -57,8 +57,8 @@ profile away when you close it.
 
 | | Version | Size | Needs |
 |---|---|---|---|
-| **Windows** | 1.1.5 | 11.2 MB | Windows 10 or 11, 64-bit |
-| **Android** | 1.1.5 | about 10 MB | Android 8.0 or newer |
+| **Windows** | 1.1.6 | 11.3 MB | Windows 10 or 11, 64-bit |
+| **Android** | 1.1.6 | about 10 MB | Android 8.0 or newer |
 
 Free. No account, no sign-up, no server of ours for anything to be sent to.
 
@@ -78,7 +78,7 @@ Get-FileHash .\IncognitoBrowserSetup.exe -Algorithm SHA256
 It should read:
 
 ```
-c0f1cb76e465a9e8a08300eb787586e650caf4fffa328b4f865352e5a5392f38
+e7a4104f9475c3ad6f1d7c877f74045e271ba837ead5dd347c69c85defabca65
 ```
 
 The installer needs no administrator rights. It installs for your user only,
