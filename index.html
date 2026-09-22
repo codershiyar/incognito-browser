@@ -23,13 +23,6 @@
 </script>
 <style>
   :root {
-    /* Dark is the default, and deliberately not tied to the visitor's
-       system setting: the browser itself starts dark, so this is what the
-       product actually looks like. The toggle in the corner switches it,
-       and that choice is remembered.
-
-       Light redefines only the tokens, never the components, so no colour
-       is ever declared in one theme and missing from the other. */
     --emerald: #22C97E;
     --emerald-bright: #45EFA0;
     --emerald-deep: #0B8A4F;
@@ -134,7 +127,6 @@
   }
   #theme-toggle:hover { color: var(--text); border-color: var(--line-bright); }
   #theme-toggle svg { width: 17px; height: 17px; grid-area: 1 / 1; }
-  /* Show the theme you would switch to, not the one you are in. */
   :root .icon-sun { display: none; }
   :root .icon-moon { display: block; }
   :root[data-theme="dark"] .icon-sun { display: none; }
@@ -142,12 +134,6 @@
   :root[data-theme="light"] .icon-sun { display: block; }
   :root[data-theme="light"] .icon-moon { display: none; }
 
-  /* The shield comes in two strengths: the deeper green holds up on white,
-     the bright one is made for the near black. */
-  /* The :root prefix is not decoration. Without it this rule is one
-     class, while .hero-art img and .shot-frame img are a class plus an
-     element and therefore win, so both versions show at once until a
-     data-theme attribute appears and raises the other rules above them. */
   :root .art-light { display: none; }
   :root .art-dark { display: block; }
   :root[data-theme="dark"] .art-light { display: none; }
@@ -261,9 +247,6 @@
   }
   .shot-frame img { width: 100%; display: block; }
 
-  /* A picture that already holds two devices does not need to run the full
-     width to read; it sits in a panel instead, capped in height so it does
-     not push everything else off the screen. */
   .shot-frame.card {
     background: var(--ink-raised);
     border: 1px solid var(--line);
@@ -318,10 +301,6 @@
   }
   .spec b { color: var(--text); font-weight: 400; }
   .hash { word-break: break-all; }
-  /* Says out loud that the Play link does not work yet, rather than
-     letting someone click through to a page that is not there. Delete
-     this line and the span once the app is live. */
-  .soon { color: #B4713A; }
 
   .note {
     margin-top: 32px; border-left: 2px solid var(--emerald-deep);
