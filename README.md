@@ -57,16 +57,19 @@ profile away when you close it.
 
 | | Version | Size | Needs |
 |---|---|---|---|
-| **Windows** | 1.1.7 | 11.3 MB | Windows 10 or 11, 64-bit |
+| **Windows**, from the [Microsoft Store](https://apps.microsoft.com/detail/9NK6S94S6L21) | 1.1.7 | 14.9 MB | Windows 10 or 11, 64-bit |
+| **Windows**, as an installer | 1.1.7 | 11.3 MB | Windows 10 or 11, 64-bit |
 | **Android** | 1.1.7 | about 10 MB | Android 8.0 or newer |
 
 Free. No account, no sign-up, no server of ours for anything to be sent to.
 
-### Windows will warn you the first time
+### The installer warns you the first time
 
-It will say the publisher is unknown, because this app has no paid signing
-certificate yet. Click **More info**, then **Run anyway**. Every new program
-without one gets this, and it goes away as more people install it.
+Windows will say the publisher is unknown, because this app has no paid
+signing certificate yet. Click **More info**, then **Run anyway**. Every new
+program without one gets this, and it goes away as more people install it.
+From the [Microsoft Store](https://apps.microsoft.com/detail/9NK6S94S6L21) there is no warning, because Microsoft signs
+it there.
 
 If you would rather be certain the file is the one published here, check it
 before running:

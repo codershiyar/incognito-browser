@@ -505,17 +505,26 @@
       <div class="card">
         <h3>Windows</h3>
         <p>Installs for your user only, so there is no administrator prompt.
-           Adds itself to Windows as a browser you can pick as the default.</p>
+           Adds itself to Windows as a browser you can pick as the default.
+           Take it from the Microsoft Store and it keeps itself up to date.
+           Take the installer instead and you need no Microsoft account.</p>
         <div class="spec">
           <span>version <b>1.1.7</b></span>
-          <span>size <b>11.3 MB</b></span>
+          <span>from the Microsoft Store <b>14.9 MB</b>, kept up to date</span>
+          <span>as an installer <b>11.3 MB</b>, no account needed</span>
           <span>Windows 10 and 11, 64-bit</span>
-          <span class="hash">sha256 <b>3fb355f13a8e71ca7bd3f6954dd647f1c592fc9e33da4099de190d9c5f52d3f2</b></span>
+          <span class="hash">installer sha256 <b>3fb355f13a8e71ca7bd3f6954dd647f1c592fc9e33da4099de190d9c5f52d3f2</b></span>
         </div>
-        <a class="btn btn-primary" href="download/IncognitoBrowserSetup.exe" download>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg>
-          Download the installer
-        </a>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="https://apps.microsoft.com/detail/9NK6S94S6L21">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>
+            Microsoft Store
+          </a>
+          <a class="btn btn-ghost" href="download/IncognitoBrowserSetup.exe" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg>
+            Installer file
+          </a>
+        </div>
       </div>
 
       <div class="card">
@@ -556,9 +565,11 @@
        go back, and the install carries on. Android asks that of everything
        that does not come from a store.</p>
 
-    <p class="note"><strong>Windows will warn you the first time.</strong>
-       It says the publisher is unknown, because this app has no paid signing
-       certificate yet. Click <em>More info</em>, then <em>Run anyway</em>.
+    <p class="note"><strong>The installer warns you the first time.</strong>
+       Windows says the publisher is unknown, because this app has no paid
+       signing certificate yet. Click <em>More info</em>, then
+       <em>Run anyway</em>. From the Microsoft Store there is no warning at
+       all, because Microsoft signs it.
        Every new program without one gets this, and the warning goes away as
        more people install it. If you want to be certain the file is the one
        published here, check its SHA-256 against the value above with
