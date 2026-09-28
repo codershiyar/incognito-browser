@@ -4,13 +4,38 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Incognito Browser</title>
-<meta name="description" content="A private browser that keeps no history. Cookies and cache are wiped every session, and nothing is kept unless you save it yourself. For Windows and Android.">
+<meta name="description" content="Incognito Browser is a private browser with no history. Built-in ad blocker and pop-up blocker. Fast, light and free for Windows and Android.">
+<meta name="keywords" content="incognito browser, private browser, no history browser, browser with no history, private browsing, ad blocker, tracker blocker, pop-up blocker, Windows browser, Android browser, fast browser, lightweight browser">
 <link rel="icon" href="assets/favicon.png">
 <meta property="og:title" content="Incognito Browser">
-<meta property="og:description" content="A private browser that keeps no history. Nothing is kept unless you save it yourself.">
+<meta property="og:description" content="Incognito Browser is a private browser with no history. Built-in ad blocker and pop-up blocker. Fast, light and free for Windows and Android.">
 <meta property="og:image" content="assets/icon.png">
 <meta name="theme-color" content="#06090A">
 <meta name="google-site-verification" content="vZNQ6YgxxEexzBP8ed0nnpJqwfnbEFD1whMXVsdh-P4" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Incognito Browser",
+  "description": "Incognito Browser is a private browser with no history. Built-in ad blocker and pop-up blocker. Fast, light and free for Windows and Android.",
+  "applicationCategory": "BrowserApplication",
+  "operatingSystem": "Windows 10, Windows 11, Android 8.0 and up",
+  "url": "https://getincognitobrowser.com/",
+  "author": { "@type": "Person", "name": "Coder Shiyar" },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "ratingCount": "12",
+    "bestRating": "5"
+  },
+  "sameAs": [
+    "https://play.google.com/store/apps/details?id=com.no.history.browser",
+    "https://apps.microsoft.com/detail/9NK6S94S6L21",
+    "https://github.com/codershiyar/incognito-browser"
+  ]
+}
+</script>
 <script>
   (function () {
     try {
@@ -109,7 +134,7 @@
   }
   .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
   .brand img { width: 30px; height: 30px; display: block; }
-  .brand span { font-weight: 650; letter-spacing: -0.015em; font-size: 16.5px; }
+  .brand h1 { font-weight: 650; letter-spacing: -0.015em; font-size: 16.5px; margin: 0; }
   .nav-links { display: flex; gap: 28px; align-items: center; }
   .nav-links a {
     text-decoration: none; color: var(--muted); font-size: 14.5px;
@@ -142,7 +167,7 @@
   :root[data-theme="light"] .art-dark { display: none; }
 
   /* ---------- hero ---------- */
-  header { padding: clamp(56px, 11vw, 128px) 0 0; position: relative; }
+  header { padding: clamp(32px, 6vw, 72px) 0 0; position: relative; }
   .hero {
     display: grid;
     grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
@@ -154,15 +179,15 @@
     .hero-art { order: -1; max-width: 240px; }
   }
 
-  h1 {
-    font-size: clamp(42px, 7.4vw, 86px);
+  .hero-line {
+    font-size: clamp(42px, 7.4vw, 80px);
     line-height: 0.98;
     letter-spacing: -0.045em;
     font-weight: 700;
     margin: 20px 0 0;
     text-wrap: balance;
   }
-  h1 em {
+  .hero-line em {
     font-style: normal;
     color: var(--emerald-bright);
   }
@@ -331,7 +356,7 @@
   <div class="wrap nav-inner">
     <a class="brand" href="#top">
       <img src="assets/logo.png" alt="">
-      <span>Incognito Browser</span>
+      <h1>Incognito Browser</h1>
     </a>
     <div class="nav-links">
       <a href="#what" class="hide-narrow">What it does</a>
@@ -349,10 +374,11 @@
   <div class="wrap hero">
     <div>
       <span class="label">Windows &amp; Android</span>
-      <h1>Browse like you were <em>never here</em>.</h1>
-      <p>No history. No cookies. No cache. Your session is wiped when you
-         close the browser and again when you open it, so nothing carries
-         over. Nothing is kept unless you save it yourself.</p>
+      <div class="hero-line">Browse like you were <em>never here</em>.</div>
+      <p>Incognito Browser is a private browser for people who care about
+         their privacy. It leaves no history behind, and has a built-in
+         ad blocker, tracker blocker and pop-up blocker. Fast, light and
+         free.</p>
       <div class="actions">
         <a class="btn btn-primary" href="#get">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg>
@@ -366,12 +392,12 @@
       <div class="meta">
         <span>Version 1.1.7</span>
         <span>11.3 MB</span>
-        <span>Free, no account</span>
+        <span>Free, no account needed</span>
       </div>
     </div>
     <div class="hero-art">
-      <img class="art-light" src="assets/logo.png" alt="The Incognito Browser shield, dissolving at the bottom">
-      <img class="art-dark" src="assets/mark-dark.png" alt="">
+      <img class="art-light" src="assets/logo.png" alt="Incognito Browser, private browser with no history">
+      <img class="art-dark" src="assets/mark-dark.png" alt="Incognito Browser, private browser with no history">
     </div>
   </div>
   <div class="wrap"><div class="dissolve" data-dissolve="34"></div></div>
