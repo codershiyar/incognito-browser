@@ -57,9 +57,9 @@ profile away when you close it.
 
 | | Version | Size | Needs |
 |---|---|---|---|
-| **Windows**, from the [Microsoft Store](https://apps.microsoft.com/detail/9NK6S94S6L21) | 1.1.8 | 15.0 MB | Windows 10 or 11, 64-bit |
-| **Windows**, as an installer | 1.1.8 | 11.3 MB | Windows 10 or 11, 64-bit |
-| **Android** | 1.1.7 | about 10 MB | Android 8.0 or newer |
+| **Windows**, from the [Microsoft Store](https://apps.microsoft.com/detail/9NK6S94S6L21) | 1.1.8 | 15.2 MB | Windows 10 or 11, 64-bit |
+| **Windows**, as an installer | 1.1.8 | 11.4 MB | Windows 10 or 11, 64-bit |
+| **Android** | 1.1.8 | about 10 MB | Android 8.0 or newer |
 
 Free. No account, no sign-up, no server of ours for anything to be sent to.
 
@@ -81,7 +81,7 @@ Get-FileHash .\IncognitoBrowserSetup.exe -Algorithm SHA256
 It should read:
 
 ```
-87baaf9d6fd08a4602c7a8653f75d26cf74772c1a49e53d42b8cfcab873aeecc
+697c24e9aa96724c6910450fccae449f831553219e76f3a6d546cb1e44a708af
 ```
 
 The installer needs no administrator rights. It installs for your user only,
