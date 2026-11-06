@@ -59,7 +59,7 @@ profile away when you close it.
 |---|---|---|---|
 | **Windows**, from the [Microsoft Store](https://apps.microsoft.com/detail/9NK6S94S6L21) | 1.1.12 | 15.2 MB | Windows 10 or 11, 64-bit |
 | **Windows**, as an installer | 1.1.12 | 11.4 MB | Windows 10 or 11, 64-bit |
-| **Android** | 1.1.13 | about 10 MB | Android 8.0 or newer |
+| **Android** | 1.1.14 | about 10 MB | Android 8.0 or newer |
 
 Free. No account, no sign-up, no server of ours for anything to be sent to.
 

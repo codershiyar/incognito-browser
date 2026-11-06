@@ -7,6 +7,9 @@
 <meta name="description" content="Incognito Browser is a private browser with no history. Built-in ad blocker and pop-up blocker. Fast, light and free for Windows and Android.">
 <meta name="keywords" content="incognito browser, private browser, no history browser, browser with no history, private browsing, ad blocker, tracker blocker, pop-up blocker, Windows browser, Android browser, fast browser, lightweight browser">
 <link rel="canonical" href="https://getincognitobrowser.com/">
+<link rel="alternate" hreflang="en" href="https://getincognitobrowser.com/">
+<link rel="alternate" hreflang="ar" href="https://getincognitobrowser.com/ar/">
+<link rel="alternate" hreflang="x-default" href="https://getincognitobrowser.com/">
 <link rel="icon" href="assets/favicon.png">
 <meta property="og:title" content="Incognito Browser">
 <meta property="og:description" content="Incognito Browser is a private browser with no history. Built-in ad blocker and pop-up blocker. Fast, light and free for Windows and Android.">
@@ -27,7 +30,7 @@
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": "4.9",
-    "ratingCount": "12",
+    "ratingCount": "14",
     "bestRating": "5"
   },
   "sameAs": [
@@ -143,6 +146,15 @@
   }
   .nav-links a:hover { color: var(--text); }
   @media (max-width: 620px) { .nav-links a.hide-narrow { display: none; } }
+  /* On the smallest phones the language switch does not fit next to the
+     name and Download; the footer still has it. */
+  @media (max-width: 480px) { .nav-links a.hide-phone { display: none; } }
+  .nav-links a.language {
+    font-size: 14px;
+    padding: 4px 11px;
+    border: 1px solid var(--line); border-radius: 8px;
+  }
+  .nav-links a.language:hover { border-color: var(--line-bright); }
 
   #theme-toggle {
     display: grid; place-items: center;
@@ -363,6 +375,7 @@
       <a href="#what" class="hide-narrow">What it does</a>
       <a href="#look" class="hide-narrow">A look inside</a>
       <a href="#get">Download</a>
+      <a class="language hide-phone" href="ar/" lang="ar" hreflang="ar">العربية</a>
       <button id="theme-toggle" type="button" aria-label="Switch between light and dark">
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
         <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.6 6.6 0 0 0 10.5 10.5Z"/></svg>
@@ -560,7 +573,7 @@
            Play and it keeps itself up to date. Take the file instead and you
            need no Google account at all.</p>
         <div class="spec">
-          <span>version <b>1.1.13</b></span>
+          <span>version <b>1.1.14</b></span>
           <span>from Google Play <b>about 10 MB</b>, only what your phone needs</span>
           <span>as a file <b>56.9 MB</b>, every kind of phone in one</span>
           <span>Android 8.0 and up</span>
@@ -613,6 +626,7 @@
       <a href="privacy.html">Privacy policy</a>
       <a href="https://github.com/codershiyar/incognito-browser/releases">All versions</a>
       <a href="https://github.com/codershiyar/incognito-browser/issues">Report a problem</a>
+      <a href="ar/" lang="ar" hreflang="ar">العربية</a>
     </div>
   </div>
 </footer>
