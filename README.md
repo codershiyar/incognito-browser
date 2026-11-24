@@ -81,7 +81,7 @@ Get-FileHash .\IncognitoBrowserSetup.exe -Algorithm SHA256
 It should read:
 
 ```
-516167233dbe1a7d8b0f97db4b2bd093e3a074618639ded7259571f11440eded
+2182512a7439311ffcbead21cbcf8fe6681febc42626d7e015bf08bedbcb254b
 ```
 
 The installer needs no administrator rights. It installs for your user only,
